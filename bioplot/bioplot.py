@@ -63,18 +63,22 @@ class Bioplot(object):
     def __init__(self, ax):
         self.ax = ax
 
-    def aaplot2d(self, seq: str, color: list=None, autoscale: bool=True, max_width=25):
+    def aaplot2d(self, seq: str, colors: list=None, autoscale: bool=True, max_width=25):
         aa_length = len(seq)
         height = aa_length // max_width + 1
         left = np.zeros(height)
-        print(height)
         for idx, s in enumerate(seq):
-            c = np.array(one_letter_aa_to_color[s]) / 255
-            _x = np.zeros(height)
-            print(idx // max_width)
-            _x[idx // max_width] = 1
-            self.ax.barh(_x, height, left=left, color=c)
-            left[0] += 1
+            if colors is None:
+                c = np.array(one_letter_aa_to_color[s]) / 255
+            else:
+                c = colors[idx]
+                
+            _y = np.zeros(height)
+
+            _y = - ((idx + 1)// (max_width) + 1)
+            print(_y, idx, idx // max_width, left)
+            self.ax.barh(_y, 0.8, left=left, color=c)
+            left[idx // (max_width-1)] += 1            
 
     def aaplot3d(self):
         pass
@@ -90,5 +94,5 @@ if __name__ == "__main__":
     seq = "MEKEKKVKYFLRKSAFGLASVSAAFLVGSTVFAVDSPIEDTPIIRNGGELTNLLGNSETTLALRNEESATADLTAAAVADTVAAAAAENAGAAAWEAAAAADALAKAKADALKEFNKYGVSDYYKNLINNAKTVEGVKDLQAQVVESAKKARISEATDGLSDFLKSQTPAEDTVKSIELAEAKVLANRELDKYGVSDYHKNLINNAKTVEGVKDLQAQVVESAKKARISEATDGLSDFLKSQTPAEDTVKSIELAEAKVLANRELDKYGVSDYYKNLINNAKTVEGVKALIDEILAALPKTDTYKLILNGKTLKGETTTEAVDAATAEKVFKQYANDNGVDGEWTYDDATKTFTVTEKPEVIDASELTPAVTTYKLVINGKTLKGETTTEAVDAATAEKVFKQYANDNGVDGEWTYDDATKTFTVTEKPEVIDASELTPAVTTYKLVINGKTLKGETTTKAVDAETAEKAFKQYANDNGVDGVWTYDDATKTFTVTEMVTEVPGDAPTEPEKPEASIPLVPLTPATPIAKDDAKKDDTKKEDAKKPEAKKEDAKKAETLPTTGEGSNPFFTAAALAVMAGAGALAVASKRKED"
     seq = "MEKEKKVKYFLRKSAFGLASVSAAFLVGSTVFAVDSPIEDTPIIRNGGELTNLL"
     color = [0.1, 0.2, 0.3, 0.1, 0.2, 0.3]
-    bplot.aaplot2d(seq, color)
+    bplot.aaplot2d(seq)
     plt.show()
