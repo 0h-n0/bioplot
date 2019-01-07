@@ -25,6 +25,6 @@ seq = "MEKEKKVKYFLRKSAFGLASVSAAFLVGSTVFAVDSPIEDTPIIRNGGELTNLLGNSETTLALRNEESATADL
 colors = np.random.randn(len(seq))
 
 bplot.aaplot2d(seq, colors=colors, max_width=20)
-plt.show()
+plt.savefig("example.png")
 ```
 
