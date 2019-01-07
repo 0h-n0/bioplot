@@ -28,3 +28,6 @@ bplot.aaplot2d(seq, colors=colors, max_width=20)
 plt.savefig("example.png")
 ```
 
+## sample
+
+![sample](https://github.com/0h-n0/bioplot/raw/master/asset/example.png "sample")
