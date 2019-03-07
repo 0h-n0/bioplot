@@ -92,7 +92,7 @@ class Bioplot(object):
 
     def grid(self, *args, **kwargs):
         self.ax.grid(*args, **kwargs)
-        
+
     def set_colorbar(self, cmap_name='bwr', vmin=None, vmax=None):
         self.cmap_name = cmap_name
         self.cmap = plt.get_cmap(cmap_name)
@@ -101,13 +101,13 @@ class Bioplot(object):
 
     def get_rgb(self, val):
         return self.scalarMap.to_rgba(val)
-        
+
     def aaplot2d(self, seq: str, colors: list=None, autoscale: bool=True, max_width=50):
         aa_length = len(seq)
         height = aa_length // max_width + 1
         left = np.zeros(height)
         h_range = list(range(height))
-        
+
         if isinstance(colors, list):
             colors = np.array(colors)
 
@@ -117,7 +117,7 @@ class Bioplot(object):
                 c = index_to_color[[one_letter_aa_to_index[seq[i]] for i in column_indexes]]
             else:
                 c = self.get_rgb(colors[column_indexes])
-                
+
             _y = np.zeros(height)
             for i in range(c.shape[0]):
                 _y[i] = 1
@@ -129,10 +129,8 @@ class Bioplot(object):
                 idx = h*max_width+i
                 if aa_length <= idx:
                     break
-                ax.text(i+0.5, h, seq[idx], family='monospace',
+                self.ax.text(i+0.5, h, seq[idx], family='monospace',
                         horizontalalignment='center', verticalalignment='center')
 
     def aaplot3d(self):
         raise NotImplementedError
-
-
